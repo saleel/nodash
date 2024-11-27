@@ -14,8 +14,3 @@ trait ArrayExtensions<T, let N: u32> {
     fn pad_start<let M: u32>(self, pad_value: T) -> [T; M];
     fn pad_end<let M: u32>(self, pad_value: T) -> [T; M];
 }
-
-#[deprecated]
-pub fn array_concat<T, let L1: u32, let L2: u32>(a: [T; L1], b: [T; L2]) -> [T; L1 + L2] {
-    a.concat(b)
-}
