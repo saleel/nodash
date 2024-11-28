@@ -128,6 +128,16 @@ use nodash::ArrayExtensions;
 assert([1, 2, 3].pad_end::<5>(0) == [1, 2, 3, 0, 0]);
 ```
 
+#### `enumerate`
+
+Returns an array of tuples, where each tuple contains the index and the value of the array element.
+
+```rs
+use nodash::ArrayExtensions;
+
+assert(["a", "b", "c"].enumerate() == [(0, "a"), (1, "b"), (2, "c")]);
+```
+
 ### `pack_bytes`
 
 Packs `[u8; N]` into `[Field; N / 31 + 1]`. Useful, if you need to get a hash over bytes. I.e., `pedersen_hash(pack_bytes(bytes))` will be MUCH cheaper than `pedersen_hash(bytes)`.

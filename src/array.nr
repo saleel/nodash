@@ -37,6 +37,14 @@ impl<T, let N: u32> crate::ArrayExtensions<T, N> for [T; N] {
         }
         res
     }
+
+    fn enumerate(self) -> [(u32, T); N] {
+        let mut res = [(0, self[0]); N]; // TODO: should I use std::zeroed() instead?
+        for i in 1..N {
+            res[i] = (i as u32, self[i]);
+        }
+        res
+    }
 }
 
 // TODO: write tests
@@ -81,5 +89,10 @@ mod tests {
     #[test]
     fn test_pad_end() {
         assert([1, 2, 3].pad_end::<5>(0) == [1, 2, 3, 0, 0]);
+    }
+
+    #[test]
+    fn test_enumerate() {
+        assert(["a", "b", "c"].enumerate() == [(0, "a"), (1, "b"), (2, "c")]);
     }
 }
