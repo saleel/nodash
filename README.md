@@ -86,6 +86,16 @@ use nodash::str_to_u64;
 assert(str_to_u64("02345678912345678912") == 02345678912345678912);
 ```
 
+### `ord`
+
+Returns the ASCII code of a single character.
+
+```rs
+use nodash::ord;
+
+assert(ord("a") == 97);
+```
+
 ### `ArrayExtensions`
 
 #### `slice<L>(start: u32) -> [T; L]`

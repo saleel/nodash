@@ -31,6 +31,10 @@ pub fn str_to_u64(arr: impl Into<[u8; U64_STR_LEN]>) -> u64 {
     parsed_number as u64
 }
 
+pub fn ord(s: str<1>) -> u8 {
+    s.as_bytes()[0]
+}
+
 #[test]
 fn test_field_to_hex() {
     let my_hash = 0x0d67824fead966192029093a3aa5c719f2b80262c4f14a5c97c5d70e4b27f2bf;
@@ -61,4 +65,9 @@ fn test_str_to_u64() {
     let s = "13378584420".as_bytes();
     assert(str_to_u64(s.concat([0; 9])) == 13378584420);
     assert(str_to_u64("02345678912345678912") == 02345678912345678912);
+}
+
+#[test]
+fn test_char() {
+    assert(ord("a") == 97);
 }
