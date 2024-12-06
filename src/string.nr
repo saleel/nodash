@@ -1,13 +1,18 @@
 global ASCII_HEX_TABLE: [u8; 16] = "0123456789abcdef".as_bytes();
 
-pub fn to_hex_string_bytes(value: Field) -> [u8; 64] {
+pub fn field_to_hex(value: Field) -> str<64> {
     let mut result = [0 as u8; 64];
     let bytes: [u8; 32] = value.to_be_bytes();
     for i in 0..bytes.len() {
         result[i * 2] = ASCII_HEX_TABLE[bytes[i] / 16];
         result[i * 2 + 1] = ASCII_HEX_TABLE[bytes[i] % 16];
     }
-    result
+    From::from(result)
+}
+
+#[deprecated]
+pub fn to_hex_string_bytes(value: Field) -> [u8; 64] {
+    field_to_hex(value).as_bytes()
 }
 
 global U64_STR_LEN: u32 = 20;
@@ -27,18 +32,18 @@ pub fn str_to_u64(arr: impl Into<[u8; U64_STR_LEN]>) -> u64 {
 }
 
 #[test]
-fn test_to_hex_string_bytes() {
+fn test_field_to_hex() {
     let my_hash = 0x0d67824fead966192029093a3aa5c719f2b80262c4f14a5c97c5d70e4b27f2bf;
     let expected = "0d67824fead966192029093a3aa5c719f2b80262c4f14a5c97c5d70e4b27f2bf";
-    assert_eq(to_hex_string_bytes(my_hash), expected.as_bytes());
+    assert_eq(field_to_hex(my_hash), expected);
 }
 
 #[test]
 fn some_test() {
     let outer_hash = 0x0d67824fead966192029093a3aa5c719f2b80262c4f14a5c97c5d70e4b27f2bf;
-    let hex_challenge: [u8; 64] = to_hex_string_bytes(outer_hash);
+    let hex_challenge = field_to_hex(outer_hash);
     let header_prefix: [u8; 26] = "subject:Re: Tx request: 0x".as_bytes();
-    let header: [u8; 90] = header_prefix.concat(hex_challenge);
+    let header: [u8; 90] = header_prefix.concat(hex_challenge.as_bytes());
     assert(
         header
             == [

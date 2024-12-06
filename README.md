@@ -66,14 +66,14 @@ let encoded = encode_with_selector(selector, args);
 // typeof encoded: [u8; 68]
 ```
 
-### `to_hex_string_bytes`
+### `field_to_hex`
 
-Converts a `Field` to a hex string.
+Converts a `Field` to a hex string (without `0x` prefix).
 
 ```rs
 let my_hash = 0x0d67824fead966192029093a3aa5c719f2b80262c4f14a5c97c5d70e4b27f2bf;
 let expected = "0d67824fead966192029093a3aa5c719f2b80262c4f14a5c97c5d70e4b27f2bf";
-assert_eq(to_hex_string_bytes(my_hash), expected.as_bytes());
+assert_eq(field_to_hex(my_hash), expected);
 ```
 
 ### `str_to_u64`
