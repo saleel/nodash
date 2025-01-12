@@ -1,13 +1,12 @@
 use crate::math::numeric::Numeric;
 use std::{cmp::Ord, ops::{Add, Div, Mul}};
 
-// TODO: check if this is correct
 pub fn sqrt<T>(value: T) -> T
 where
     T: Numeric + Mul + Ord + Add + Div,
 {
     let r = unsafe {
-        // Safety: unsafe sqrt is checked to be between bounds
+        //@safety: unsafe sqrt is checked to be between bounds
         let r = sqrt_unconstrained(value);
         assert(value >= r * r);
         let ONE: T = Numeric::one();
