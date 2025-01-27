@@ -1,10 +1,6 @@
 name: Noir tests
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
+on: [push]
 
 env:
   CARGO_TERM_COLOR: always
@@ -27,7 +23,9 @@ jobs:
           toolchain: ${{ matrix.toolchain }}
 
       - name: Run Noir tests
-        run: nargo test
+        run: |
+          nargo test
+          cd tests && nargo test
 
   format:
     runs-on: ubuntu-latest
