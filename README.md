@@ -7,7 +7,7 @@ Nodash is a utility library for [Noir](https://github.com/noir-lang/noir) langua
 Put this into your Nargo.toml.
 
 ```toml
-nodash = { git = "https://github.com/olehmisar/nodash/", tag = "v0.39.4" }
+nodash = { git = "https://github.com/olehmisar/nodash/", tag = "v0.39.5" }
 ```
 
 ## Docs
@@ -44,6 +44,53 @@ Calculates `a / b` rounded up to the nearest integer.
 use nodash::div_ceil;
 
 assert(div_ceil(10 as u64, 3) == 4);
+```
+
+### Hashes
+
+Hash functions can either accept a `[T; N]` or a `BoundedVec<T, N>` (if technically possible).
+
+#### `poseidon2`
+
+```rs
+use nodash::poseidon2;
+
+// hashes the whole array
+let hash = poseidon2([10, 20]);
+// hashes elements up to the length (in this case, 2)
+let hash = poseidon2(BoundedVec::from_parts([10, 20, 0], 2));
+```
+
+#### `pedersen`
+
+```rs
+use nodash::pedersen;
+
+let hash = pedersen([10, 20]);
+```
+
+#### `sha256`
+
+sha256 is expensive to compute in Noir, so use [poseidon2](#poseidon2) where possible.
+
+```rs
+use nodash::sha256;
+
+let hash = sha256([10, 20]);
+// or
+let hash = sha256(BoundedVec::from_parts([10, 20, 0], 2));
+```
+
+#### `keccak256`
+
+keccak256 is expensive to compute in Noir, so use [poseidon2](#poseidon2) where possible.
+
+```rs
+use nodash::keccak256;
+
+let hash = keccak256([10, 20]);
+// or
+let hash = keccak256(BoundedVec::from_parts([10, 20, 0], 2));
 ```
 
 ### `solidity::encode_with_selector`
