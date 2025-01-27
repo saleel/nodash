@@ -235,7 +235,7 @@ fn main(a: U120) {
 // this succeeds but it shouldn't!
 await noir.execute({
   a: {
-    inner: 2n * 10n ** 120n + 1n,
+    inner: 2n ** 120n + 1n,
   },
 });
 ```
@@ -265,7 +265,7 @@ Now, if you pass a value that is larger than 2^120 to `a` in JavaScript, you wil
 // runtime error: "Assertion failed: call to assert_max_bit_size"
 await noir.execute({
   a: {
-    inner: 2n * 10n ** 120n + 1n,
+    inner: 2n ** 120n + 1n,
   },
 });
 ```
