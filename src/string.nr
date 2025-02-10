@@ -10,7 +10,7 @@ pub fn field_to_hex(value: Field) -> str<64> {
     From::from(result)
 }
 
-#[deprecated]
+#[deprecated("use field_to_hex instead")]
 pub fn to_hex_string_bytes(value: Field) -> [u8; 64] {
     field_to_hex(value).as_bytes()
 }
