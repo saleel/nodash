@@ -67,6 +67,11 @@ mod tests {
     }
 
     #[test]
+    fn test_sqrt_native_u128() {
+        assert(sqrt(6 as u128) == 2);
+    }
+
+    #[test]
     fn test_sqrt_many_numbers() {
         let pairs: [[Field; 2]] = &[
             [0, 0],
