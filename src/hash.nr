@@ -15,7 +15,7 @@ pub fn sha256<let N: u32>(input: impl ArrayOrBoundedVec<u8, N>) -> [u8; 32] {
 
 pub fn keccak256<let N: u32>(input: impl ArrayOrBoundedVec<u8, N>) -> [u8; 32] {
     let input = input.as_bounded_vec();
-    std::hash::keccak256(input.storage(), input.len())
+    dep::keccak256::keccak256(input.storage(), input.len())
 }
 
 /// Needed because of https://github.com/noir-lang/noir/issues/7054
@@ -81,6 +81,8 @@ mod tests {
             sha256(U8_INPUT_ARR)
                 == dep::sha256::sha256_var(U8_INPUT_ARR, U8_INPUT_ARR.len() as u64),
         );
-        assert(keccak256(U8_INPUT_ARR) == std::hash::keccak256(U8_INPUT_ARR, U8_INPUT_ARR.len()));
+        assert(
+            keccak256(U8_INPUT_ARR) == dep::keccak256::keccak256(U8_INPUT_ARR, U8_INPUT_ARR.len()),
+        );
     }
 }
