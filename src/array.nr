@@ -1,3 +1,5 @@
+use super::ArrayExtensions;
+
 impl<T, let N: u32> crate::ArrayExtensions<T, N> for [T; N] {
     fn slice<let L: u32>(self, start: u32) -> [T; L] {
         let end = start + L;
@@ -71,6 +73,8 @@ fn field_from_bytes<let N: u32>(bytes: [u8; N]) -> Field {
 }
 
 mod tests {
+    use crate::ArrayExtensions;
+
     #[test]
     fn test_slice() {
         assert([1, 2, 3, 4, 5].slice::<3>(1) == [2, 3, 4]);

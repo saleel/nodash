@@ -29,7 +29,7 @@ where
     }
 }
 
-mod math_tests {
+mod tests {
     use crate::math::{clamp, div_ceil};
 
     #[test]

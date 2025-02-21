@@ -5,8 +5,8 @@ pub fn sqrt<T>(value: T) -> T
 where
     T: Numeric + Mul + Ord + Add + Div,
 {
+    // Safety: unsafe sqrt is checked to be between bounds
     let r = unsafe {
-        //@safety: unsafe sqrt is checked to be between bounds
         let r = sqrt_unconstrained(value);
         assert(value >= r * r);
         let ONE: T = Numeric::one();
@@ -45,7 +45,7 @@ where
     }
 }
 
-mod sqrt_tests {
+mod tests {
     use crate::math::sqrt::sqrt;
 
     #[test]
