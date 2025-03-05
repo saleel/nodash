@@ -1,3 +1,4 @@
+mod convert;
 mod hash;
 mod math;
 mod solidity;
@@ -7,6 +8,7 @@ mod array;
 mod validate_inputs;
 
 pub use array::pack_bytes;
+pub use convert::TryFrom;
 pub use hash::{keccak256, pedersen, poseidon2, sha256};
 pub use math::{clamp, div_ceil, sqrt::sqrt};
 pub use string::{field_to_hex, ord, str_to_u64, to_hex_string_bytes};
