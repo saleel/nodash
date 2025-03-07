@@ -47,12 +47,3 @@ impl Numeric for u128 {
         1
     }
 }
-
-impl Numeric for U128 {
-    fn zero() -> Self {
-        U128::from_integer(0)
-    }
-    fn one() -> Self {
-        U128::from_integer(1)
-    }
-}

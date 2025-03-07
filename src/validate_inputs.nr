@@ -66,10 +66,6 @@ impl ValidateInput for bool {
     fn validate(self) {}
 }
 
-impl ValidateInput for U128 {
-    fn validate(self) {}
-}
-
 impl<let N: u32> ValidateInput for str<N> {
     fn validate(self) {}
 }

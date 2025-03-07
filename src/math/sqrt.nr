@@ -50,9 +50,9 @@ mod tests {
 
     #[test]
     fn test_sqrt() {
-        let value = U128::from_integer(170141183460469231731687303715884105727);
+        let value: u128 = 170141183460469231731687303715884105727;
         let result = sqrt(value);
-        assert(result == U128::from_integer(13043817825332782212));
+        assert(result == 13043817825332782212);
     }
 
     #[test]
@@ -60,10 +60,7 @@ mod tests {
         assert(sqrt(18 as u8) == 4);
         assert(sqrt(2482737472 as u32) == 49827);
         assert(sqrt(14446244073709551616 as u64) == 3800821499);
-        assert(
-            sqrt(U128::from_integer(1444624284781234073709551616))
-                == U128::from_integer(38008213385809),
-        );
+        assert(sqrt(1444624284781234073709551616 as u128) == 38008213385809);
     }
 
     #[test]
@@ -73,7 +70,7 @@ mod tests {
 
     #[test]
     fn test_sqrt_many_numbers() {
-        let pairs: [[Field; 2]] = &[
+        let pairs: [[u128; 2]] = &[
             [0, 0],
             [1, 1],
             [2, 1],
@@ -152,10 +149,10 @@ mod tests {
         ];
 
         for pair in pairs {
-            let value = U128::from_integer(pair[0]);
+            let value = pair[0];
             let result = sqrt(value);
             // std::println(f"{pair} {result}");
-            assert(result == U128::from_integer(pair[1]));
+            assert(result == pair[1]);
         }
     }
 }
