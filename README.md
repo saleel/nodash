@@ -133,7 +133,7 @@ assert(str_to_u64("02345678912345678912") == 02345678912345678912);
 
 Fail-able conversion.
 
-````rs
+```rs
 use nodash::TryFrom;
 
 assert(u8::try_from(123) == 123);
