@@ -7,7 +7,7 @@ Nodash is a utility library for [Noir](https://github.com/noir-lang/noir) langua
 Put this into your Nargo.toml.
 
 ```toml
-nodash = { git = "https://github.com/olehmisar/nodash/", tag = "v0.40.2" }
+nodash = { git = "https://github.com/olehmisar/nodash/", tag = "v0.40.3" }
 ```
 
 ## Docs
@@ -150,7 +150,7 @@ Returns the ASCII code of a single character.
 use nodash::ord;
 
 assert(ord("a") == 97);
-````
+```
 
 ### `ArrayExtensions`
 
