@@ -11,17 +11,6 @@ impl<T, let N: u32> crate::ArrayExtensions<T, N> for [T; N] {
         result
     }
 
-    fn concat<let M: u32>(self, other: [T; M]) -> [T; N + M] {
-        let mut result = [self[0]; N + M];
-        for i in 0..N {
-            result[i] = self[i];
-        }
-        for i in 0..M {
-            result[i + N] = other[i];
-        }
-        result
-    }
-
     fn pad_start<let M: u32>(self, pad_value: T) -> [T; M] {
         assert(M >= N, "pad_start: array too long");
         let mut res = [pad_value; M];
@@ -78,11 +67,6 @@ mod tests {
     #[test]
     fn test_slice() {
         assert([1, 2, 3, 4, 5].slice::<3>(1) == [2, 3, 4]);
-    }
-
-    #[test]
-    fn test_simple() {
-        assert([1, 2, 3].concat([4, 5]) == [1, 2, 3, 4, 5]);
     }
 
     #[test]

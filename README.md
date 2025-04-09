@@ -164,16 +164,6 @@ use nodash::ArrayExtensions;
 assert([1, 2, 3, 4, 5].slice::<3>(1) == [2, 3, 4]);
 ```
 
-#### `concat`
-
-Concatenates two arrays.
-
-```rs
-use nodash::ArrayExtensions;
-
-assert([1, 2, 3].concat([4, 5]) == [1, 2, 3, 4, 5]);
-```
-
 #### `pad_start`
 
 Pads the start of the array with a value.
