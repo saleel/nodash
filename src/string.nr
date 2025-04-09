@@ -2,7 +2,7 @@ global ASCII_HEX_TABLE: [u8; 16] = "0123456789abcdef".as_bytes();
 
 pub fn field_to_hex(value: Field) -> str<64> {
     let mut result = [0 as u8; 64];
-    let bytes: [u8; 32] = value.to_be_bytes();
+    let bytes = value.to_be_bytes::<32>().map(|x| x as u32);
     for i in 0..bytes.len() {
         result[i * 2] = ASCII_HEX_TABLE[bytes[i] / 16];
         result[i * 2 + 1] = ASCII_HEX_TABLE[bytes[i] % 16];
@@ -17,7 +17,7 @@ pub fn to_hex_string_bytes(value: Field) -> [u8; 64] {
 
 global U64_STR_LEN: u32 = 20;
 pub fn str_to_u64(arr: impl Into<[u8; U64_STR_LEN]>) -> u64 {
-    let arr = arr.into();
+    let arr = arr.into().map(|x| x as u32);
 
     let mut parsed_number: Field = 0;
     for i in 0..U64_STR_LEN {
@@ -36,7 +36,7 @@ pub fn ord(s: str<1>) -> u8 {
 }
 
 mod tests {
-    use crate::{ArrayExtensions, string::{field_to_hex, ord, str_to_u64}};
+    use crate::string::{field_to_hex, ord, str_to_u64};
 
     #[test]
     fn test_field_to_hex() {

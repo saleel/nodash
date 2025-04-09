@@ -20,7 +20,7 @@ pub trait ValidateInput {
     fn validate(self);
 }
 
-comptime fn derive_validate_input(s: StructDefinition) -> Quoted {
+comptime fn derive_validate_input(s: TypeDefinition) -> Quoted {
     let name = quote { nodash::ValidateInput };
     let signature = quote { fn validate(self)  };
     let for_each_field = |name| quote { nodash::ValidateInput::validate(self.$name); };
