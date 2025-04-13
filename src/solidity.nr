@@ -1,14 +1,44 @@
-global SELECTOR_LENGTH: u32 = 4;
+use crate::ArrayExtensions;
 
+pub global SELECTOR_LENGTH: u32 = 4;
+
+/// Encodes a function selector and its arguments into a byte array.
+///
+/// ## Arguments
+///
+/// * `selector` - The function selector to encode.
+/// * `args` - The arguments to encode.
+///
+/// ## Returns
+///
+/// A byte array containing the function selector and its arguments.
+///
+/// ## Example
+///
+/// ```noir
+/// let selector: u32 = 0xa9059cbb; // transfer(address,uint256)
+/// let args: [Field; 2] = [
+///     0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045, // address
+///     123, // uint256
+/// ];
+/// let encoded = encode_with_selector(selector, args);
+/// ```
 pub fn encode_with_selector<let N: u32>(
     selector: u32,
     args: [Field; N],
 ) -> [u8; SELECTOR_LENGTH + N * 32] {
+    let selector_bytes: [u8; SELECTOR_LENGTH] = (selector as Field).to_be_bytes();
+    encode_with_selector_bytes(selector_bytes, args)
+}
+
+pub fn encode_with_selector_bytes<let N: u32>(
+    selector: [u8; SELECTOR_LENGTH],
+    args: [Field; N],
+) -> [u8; SELECTOR_LENGTH + N * 32] {
     let mut result = [0; SELECTOR_LENGTH + N * 32];
 
-    let selector_bytes: [u8; 4] = (selector as Field).to_be_bytes();
     for i in 0..SELECTOR_LENGTH {
-        result[i] = selector_bytes[i];
+        result[i] = selector[i];
     }
 
     for i in 0..N {
@@ -21,17 +51,38 @@ pub fn encode_with_selector<let N: u32>(
     result
 }
 
+pub fn to_selector<let N: u32>(signature: str<N>) -> [u8; SELECTOR_LENGTH] {
+    crate::keccak256(signature.as_bytes()).slice::<SELECTOR_LENGTH>(0)
+}
+
 mod tests {
-    use crate::solidity::encode_with_selector;
+    use crate::solidity::{encode_with_selector, encode_with_selector_bytes, to_selector};
 
     #[test]
-    fn test_simple() {
+    fn test_simple_selector() {
         let selector: u32 = 0xa9059cbb; // transfer(address,uint256)
         let args: [Field; 2] = [
             0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045, // address
             123, // uint256
         ];
         let encoded = encode_with_selector(selector, args);
+        let expected: [u8; 68] = [
+            169, 5, 156, 187, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 216, 218, 107, 242, 105, 100, 175,
+            157, 126, 237, 158, 3, 229, 52, 21, 211, 122, 169, 96, 69, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 123,
+        ];
+        assert(encoded == expected);
+    }
+
+    #[test]
+    fn test_simple_signature() {
+        let args: [Field; 2] = [
+            0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045, // address
+            123, // uint256
+        ];
+
+        let encoded =
+            encode_with_selector_bytes(comptime { to_selector("transfer(address,uint256)") }, args);
         let expected: [u8; 68] = [
             169, 5, 156, 187, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 216, 218, 107, 242, 105, 100, 175,
             157, 126, 237, 158, 3, 229, 52, 21, 211, 122, 169, 96, 69, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
