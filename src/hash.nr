@@ -1,6 +1,6 @@
 pub fn poseidon2<let N: u32>(input: impl ArrayOrBoundedVec<Field, N>) -> Field {
     let input = input.as_bounded_vec();
-    std::hash::poseidon2::Poseidon2::hash(input.storage(), input.len())
+    poseidon::poseidon2::Poseidon2::hash(input.storage(), input.len())
 }
 
 // TODO: is it possible for pedersen to accept BoundedVec?
@@ -67,11 +67,11 @@ mod tests {
     fn test_against_std() {
         assert(
             poseidon2(FIELD_INPUT_ARR)
-                == std::hash::poseidon2::Poseidon2::hash(FIELD_INPUT_ARR, FIELD_INPUT_ARR.len()),
+                == poseidon::poseidon2::Poseidon2::hash(FIELD_INPUT_ARR, FIELD_INPUT_ARR.len()),
         );
         assert(
             poseidon2(FIELD_INPUT_VEC_LONGER)
-                == std::hash::poseidon2::Poseidon2::hash(
+                == poseidon::poseidon2::Poseidon2::hash(
                     FIELD_INPUT_VEC_LONGER.storage(),
                     FIELD_INPUT_VEC_LONGER.len(),
                 ),
