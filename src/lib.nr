@@ -1,7 +1,7 @@
 mod convert;
 mod hash;
 mod math;
-mod solidity;
+pub mod solidity;
 mod string;
 mod tables;
 mod array;
