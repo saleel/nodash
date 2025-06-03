@@ -196,7 +196,7 @@ assert(["a", "b", "c"].enumerate() == [(0, "a"), (1, "b"), (2, "c")]);
 
 ### `pack_bytes`
 
-Packs `[u8; N]` into `[Field; N / 31 + 1]`. Useful, if you need to get a hash over bytes. I.e., `pedersen_hash(pack_bytes(bytes))` will be MUCH cheaper than `pedersen_hash(bytes)`.
+Packs `[u8; N]` into `[Field; N / 31 + 1]`. Useful, if you need to get a hash over bytes. I.e., `nodash::poseidon2(nodash::pack_bytes(bytes))` will be MUCH cheaper than `nodash::poseidon2(bytes)`.
 
 ```rs
 use nodash::pack_bytes;
