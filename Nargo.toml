@@ -2,7 +2,6 @@
 name = "nodash"
 type = "lib"
 description = "A Swiss knife for Noir"
-version = "0.41.3"
 authors = ["Oleh Misarosh <olehmisar@gmail.com>"]
 repository = "https://github.com/olehmisar/nodash"
 keywords = ["Noir", "nodash", "util", "hash"]
